@@ -56,6 +56,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/company/{id}/edit',[CompanyController::class, 'edit'])->name('company.edit');
     Route::patch('/admin/company/{id}', [CompanyController::class, 'update'])->name('company.update');
     Route::delete('/admin/company/{id}', [CompanyController::class, 'destroy']) -> name('company.destroy');
+    Route::post('/admin/company/{id}/{asset}', [CompanyController::class, 'deleteasset'])->name('company.deleteasset');
 
     Route::get('/admin/branches', [BranchesController::class, 'index'])->name('branches.index');
     Route::get('/admin/branches-create', [BranchesController::class, 'create'])->name('branches.create');
@@ -70,6 +71,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/ventures/{id}/edit',[VenturesController::class, 'edit'])->name('ventures.edit');
     Route::patch('/admin/ventures/{id}', [VenturesController::class, 'update'])->name('ventures.update');
     Route::delete('/admin/ventures/{id}', [VenturesController::class, 'destroy']) -> name('ventures.destroy');
+    Route::post('/admin/ventures/{id}/{asset}', [VenturesController::class, 'deleteasset'])->name('ventures.deleteasset');
 
     Route::get('/admin/properties', [PropertyController::class, 'index'])->name('properties.index');
     Route::get('/admin/properties-create', [PropertyController::class, 'create'])->name('properties.create');
@@ -109,7 +111,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/page', [PageController::class, 'index'])->name('page.index');
     Route::get('/page/create', [PageController::class, 'create'])->name('page.create');
     Route::post('/page/store', [PageController::class, 'store'])->name('page.store');
-
     Route::get('/page/{id}/edit', [PageController::class, 'edit'])->name('page.edit');
     Route::post('/page/{id}', [PageController::class, 'update'])->name('page.update');
     Route::delete('/page/{id}', [PageController::class, 'destroy'])->name('page.destroy');

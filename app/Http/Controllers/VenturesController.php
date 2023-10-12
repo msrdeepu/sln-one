@@ -5,6 +5,7 @@ use Inertia\Inertia;
 use App\Models\Ventures;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class VenturesController extends Controller
 {
@@ -84,13 +85,22 @@ class VenturesController extends Controller
      */
     public function edit($id)
     {
-        $user = Auth::user();
         $ventures = Ventures::get(['id','code','sstatus', 'title', 'templateslug','slug','mapheight','location','mapwidth','branch','salevel','locationimg', 'layout', 'layoutmap', 'pagetitleseo','banner','largemap', 'metadescription', 'metakeywords', 'published', 'mainbody', 'extrabody', 'bodystyles', 'otherdetails', 'created_at', 'address', 'id as key']);
-        $venture = Ventures::find($id);
+        $record = Ventures::find($id);
+        if($record->locationimg != null){
+            $record ->locationimgPath = asset('storage/' . $record -> locationimg);
+        }
+        if($record->layoutmap != null){
+            $record ->layoutmapPath = asset('storage/' . $record -> layoutmap);
+        }
+        if($record->banner != null){
+            $record ->bannerPath = asset('storage/' . $record -> banner);
+        }
+        if($record->largemap != null){
+            $record ->largemapPath = asset('storage/' . $record -> largemap);
+        }
         return Inertia::render('Ventures/Venturescreate', [
-            'user' => $user,
-            'ventruesList' => $ventures,
-            'record' => $venture,
+            'record' => $record,
         ]);
     }
 
@@ -99,33 +109,61 @@ class VenturesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = Ventures::where('id', '=', $id) -> update([
-            "code" => $request->code,
-            "sstatus" => $request->sstatus,
-            "title" => $request->title,
-            "templateslug" => $request->templateslug,
-            "slug" => $request->slug,
-            "mapheight" => $request->mapheight,
-            "location" => $request->location,
-            "mapwidth" => $request->mapwidth,
-            "branch" => $request->branch,
-            "salevel" => $request->salevel,
-            "locationimg" => $request->locationimg,
-            "layout" => $request->layout,
-            "layoutmap" => $request->layoutmap,
-            "pagetitleseo" => $request->pagetitleseo,
-            "banner" => $request->banner,
-            "largemap" => $request->largemap,
-            "metadescription" => $request->metadescription,
-            "metakeywords" => $request->metakeywords,
-            "address" => $request->address,
-            "published" => $request->published,
-            "mainbody" => $request->mainbody,
-            "extrabody"=>$request->extrabody,
-            "bodystyles" => $request->bodystyles,
-            "otherdetails" => $request->otherdetails
-        ]);
+        $venture = Ventures::find($id);
+        $locationimg= null;
+        $layoutmap = null;
+        $banner = null;
+        $largemap = null;
+        $requestData = $request->all();
+        if($request->file('locationimg')){
+            Storage::delete('public' . $ventur->locationimg);
+            $locationimg = $request->file('locationimg')->store('company', 'public');
+            $requestData['locationimg'] = $locationimg;
+        }
+        if($request->file('layoutmap')){
+            Storage::delete('public' . $ventur->layoutmap);
+            $layoutmap = $request->file('layoutmap')->store('company', 'public');
+            $requestData['layoutmap'] = $layoutmap;
+        }
+        if($request->file('banner')){
+            Storage::delete('public' . $ventur->banner);
+            $banner = $request->file('banner')->store('company', 'public');
+            $requestData['banner'] = $banner;
+        }
+        if($request->file('largemap')){
+            Storage::delete('public' . $ventur->largemap);
+            $largemap = $request->file('largemap')->store('company', 'public');
+            $requestData['largemap'] = $largemap;
+        }
+        $updated=$venture->update($requestData);
         return to_route('ventures.index');
+    }
+
+    //delete page assets
+    public function deleteasset($id, $asset)
+    {
+        $venture = Ventures::find($id);
+
+        switch($asset){
+            case('locationimg'):
+                Storage::delete('public' . $venture->locationimg);
+                $venture->update(['locationimg'=>null]);
+                break;
+            case('layoutmap'):
+                Storage::delete('public' . $venture->layoutmap);
+                $venture->update(['layoutmap'=>null]);
+                break;
+            case('banner'):
+                Storage::delete('public' . $venture->banner);
+                $venture->update(['banner'=>null]);
+                break;
+            case('largemap'):
+                Storage::delete('public' . $venture->largemap);
+                $venture->update(['largemap'=>null]);
+                break;
+            default:
+
+        }
     }
 
     /**

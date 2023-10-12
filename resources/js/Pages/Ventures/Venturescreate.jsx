@@ -3,10 +3,7 @@ import { Head, useForm } from "@inertiajs/react";
 import Venturesform from "./Venturesform";
 //custom css
 import "./ventures.css";
-import {
-    Card,
-    Form,
-} from "antd";
+import { Card, Form } from "antd";
 
 function Venturescreate({ props, record }) {
     const [form] = Form.useForm();
@@ -35,21 +32,20 @@ function Venturescreate({ props, record }) {
         mainbody: record.mainbody,
         extrabody: record.extrabody,
         bodystyles: record.bodystyles,
-        otherdetails: record.otherdetails
-
-    })
+        otherdetails: record.otherdetails,
+    });
 
     //submitHandler
     const submitHandler = (values) => {
         console.log(data);
         post("/admin/ventures/store", data);
-    }
+    };
 
     //updateHandler
     const updateHandler = (values) => {
         console.log(data);
-        patch(`/admin/ventures/${record.id}`, data)
-    }
+        patch(`/admin/ventures/${record.id}`, data);
+    };
 
     return (
         <>
@@ -57,7 +53,10 @@ function Venturescreate({ props, record }) {
 
             <Card title={`Venture Details`}>
                 <Venturesform
-                    submitForm={record.code == undefined ? submitHandler : updateHandler}
+                    record={record}
+                    submitForm={
+                        record.code == undefined ? submitHandler : updateHandler
+                    }
                     setData={setData}
                     data={data}
                     savebutton={record.code == undefined ? "Add" : "Save"}

@@ -42,7 +42,23 @@ function CompanyForm({ data, setData, submitForm, saveButton, record }) {
         logo = (
             <>
                 <Image width={200} src={record.logo} />{" "}
-                <Link href={`/company/${record.id}/banner`} method="post">
+                <Link href={`/admin/company/${record.id}/logo`} method="post">
+                    <Button shape="round" danger icon={<DeleteOutlined />}>
+                        Delete
+                    </Button>
+                </Link>
+            </>
+        );
+    }
+
+    let qrText = "QR Code";
+    let qrcode = "";
+    if (record.qrcode != null) {
+        qrText = "Replace QR Code";
+        qrcode = (
+            <>
+                <Image width={200} src={record.qrcode} />{" "}
+                <Link href={`/admin/company/${record.id}/qrcode`} method="post">
                     <Button shape="round" danger icon={<DeleteOutlined />}>
                         Delete
                     </Button>
@@ -60,23 +76,25 @@ function CompanyForm({ data, setData, submitForm, saveButton, record }) {
                 form={form}
                 autoComplete="on"
                 initialValues={{
-                    companyname: data.companyname,
-                    domain: data.domain,
-                    gstax: data.gstax,
-                    pan: data.pan,
-                    upiId: data.upiid,
-                    email: data.email,
-                    phonenum: data.phonenum,
-                    mobilenum: data.mobilenum,
-                    websiteslug: data.websiteslug,
-                    logo: data.logo,
-                    qrcode: data.qrcode,
-                    astatus: data.astatus,
-                    address: data.address,
-                    bankdetails: data.bankdetails,
-                    terms: data.terms,
-                    note: data.note,
-                    footer: data.footer,
+                    companyname: data.companyname || "",
+                    domain: data.domain || "",
+                    gstax: data.gstax || "",
+                    pan: data.pan || "",
+                    upiId: data.upiid || "",
+                    email: data.email || "",
+                    phonenum: data.phonenum || "",
+                    mobilenum: data.mobilenum || "",
+                    websiteslug: data.websiteslug || "",
+                    logo: data.logo || "",
+                    qrcode: data.qrcode || "",
+                    astatus: data.astatus || "",
+                    address: data.address || "",
+                    bankdetails: data.bankdetails || "",
+                    terms: data.terms || "",
+                    note: data.note || "",
+                    footer: data.footer || "",
+                    logo: null,
+                    qrcode: null,
                 }}
             >
                 <Row gutter={[8, 4]}>
@@ -217,7 +235,8 @@ function CompanyForm({ data, setData, submitForm, saveButton, record }) {
                         </Form.Item>
                     </Col>
                     <Col xs={24} md={12}>
-                        <Form.Item label="QR Code" name="qrcode">
+                        <Form.Item label={qrText} name="qrcode">
+                            {qrcode}
                             <Input
                                 type="file"
                                 onChange={(e) =>

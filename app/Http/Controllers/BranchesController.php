@@ -6,6 +6,7 @@ use App\Models\Branches;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 class BranchesController extends Controller
 {
     /**

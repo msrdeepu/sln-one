@@ -54,7 +54,6 @@ class CompanyController extends Controller
         }
 
         $data= Company::create($requestData);
-        // $data = Company::create($requestData);
         $data->save();
         return to_route('company.index');
     }
@@ -72,16 +71,17 @@ class CompanyController extends Controller
      */
     public function edit($id)
     {
-       $user = Auth::user();
-       $companies = Company::get(['id', 'companyname', 'domain', 'gstax', 'pan', 'upiId', 'email', 'phonenum', 'mobilenum', 'websiteslug', 'logo', 'qrcode', 'astatus', 'address', 'bankdetails', 'terms', 'note', 'footer', 'created_at']);
-       $company = Company::find($id);
-       if($company->logo != null){
-        $company->logoPath = asset('storage/'.$company->logo);
+       //$companies = Company::get(['id', 'companyname', 'domain', 'gstax', 'pan', 'upiId', 'email', 'phonenum', 'mobilenum', 'websiteslug', 'logo', 'qrcode', 'astatus', 'address', 'bankdetails', 'terms', 'note', 'footer', 'created_at']);
+       $record = Company::find($id);
+       if($record->logo != null){
+        $record->logoPath = asset('storage/'.$record->logo);
+     }
+
+     if($record->qrcode != null){
+        $record->qrcodePath = asset('storage/'.$record->qrcode);
      }
        return Inertia::render('Company/Createcompany', [
-        'user' => $user,
-        'companyList' => $companies,
-        'record' => $company,
+        'record' => $record,
        ]);
     }
 
@@ -90,48 +90,66 @@ class CompanyController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $company = Company::find($id);
         $logo= null;
         $qrcode=null;
         $requestData = $request->all();
         if ($request->file('logo')){
-            $logo = $request->file('logo')->store('content', 'public' );
+            Storage::delete('public' . $company->logo);
+            $logo = $request->file('logo')->store('company', 'public');
             $requestData['logo'] = $logo;
         }
 
         if ($request->file('qrcode')){
-            $qrcode = $request->file('qrcode')->store('content', 'public');
+            Storage::delete('public' . $company->qrcode);
+            $qrcode = $request->file('qrcode')->store('company', 'public');
             $requestData['qrcode'] = $qrcode;
         }
 
-        $data = Company::where('id', '=', $id) -> update([
-            "companyname"=> $request->companyname,
-            "domain"=> $request->domain,
-            "gstax"=> $request->gstax,
-            "pan"=> $request->pan,
-            "upiId"=> $request->upiid,
-            "email"=> $request->email,
-            "phonenum"=> $request->phonenum,
-            "mobilenum"=> $request->mobilenum,
-            "websiteslug"=> $request->websiteslug,
-            "logo"=>$logo,
-            "qrcode"=>$qrcode,
-            "astatus"=> $request->astatus,
-            "address"=> $request->address,
-            "bankdetails"=> $request->bankdetails,
-            "terms"=> $request->terms,
-            "note"=> $request->note,
-            "footer"=> $request->footer
-        ]);
+        //dd($requestData);
+        //$data=$company->update($requestData);
+        $updated=$company->update($requestData);
 
         return to_route('company.index');
     }
+
+     // delete page assets
+     public function deleteasset($id, $asset)
+     {
+         $company = Company::find($id);
+ 
+         switch($asset) {
+             case('logo'):
+                 Storage::delete('public' . $company->logo);
+                 $company->update(["logo"=> null]);
+                 break;
+ 
+             case('qrcode'):
+                 Storage::delete('public' . $company->qrcode);
+                 $company->update(["qrcode"=> null]);
+                 break;
+ 
+             default:
+ 
+         }
+    }
+ 
+
+   
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy($id)
     {
-        Company::find($id)->delete();
+        $company = Company::find($id);
+        if ($company->logo !="") {
+            Storage::delete('public' . $company->logo);
+        }
+        if ($company->qrcode !="") {
+            Storage::delete('public' . $company->qrcode);
+        }
+        $company->delete();
         return to_route('company.index');
     }
 }

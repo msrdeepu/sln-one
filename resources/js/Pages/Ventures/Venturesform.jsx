@@ -1,8 +1,8 @@
-import { useForm, router } from "@inertiajs/react";
+import { useForm, router, Link } from "@inertiajs/react";
 //custom css
 import "./ventures.css";
-import { Button, Col, Row, Form, Input, Select, Radio } from "antd";
-
+import { Button, Col, Row, Form, Input, Select, Radio, Image } from "antd";
+import { DeleteOutlined } from "@ant-design/icons";
 const onCancelData = () => {
     window.alert("Are You Sure Want to Cancel?");
     router.get(route("ventures.index"));
@@ -74,6 +74,84 @@ function Venturesform({ data, setData, submitForm, savebutton, record }) {
     const editor = useRef(null);
     const [content, setContent] = useState("");
 
+    //attachments
+
+    let locationImgText = "Location Image";
+    let locationImg = "";
+    if (record.locationimg != null) {
+        locationImgText = "Replace Location Image";
+        locationImg = (
+            <>
+                <Image width={200} src={record.locationimg} />
+                <Link
+                    href={`/admin/ventures/${record.id}/locationimg`}
+                    method="post"
+                >
+                    <Button shape="round" danger icon={<DeleteOutlined />}>
+                        Delete
+                    </Button>
+                </Link>
+            </>
+        );
+    }
+
+    let layoutmapText = "Layout Map";
+    let layoutmap = "";
+    if (record.layoutmap != null) {
+        layoutmapText = "Replace Layout Map Image";
+        layoutmap = (
+            <>
+                <Image width={200} src={record.layoutmap} />
+                <Link
+                    href={`/admin/ventures/${record.id}/layoutmap`}
+                    method="post"
+                >
+                    <Button shape="round" danger icon={<DeleteOutlined />}>
+                        Delete
+                    </Button>
+                </Link>
+            </>
+        );
+    }
+
+    let bannerText = "Layout Map";
+    let banner = "";
+    if (record.banner != null) {
+        bannerText = "Replace Banner Image";
+        banner = (
+            <>
+                <Image width={200} src={record.banner} />
+                <Link
+                    href={`/admin/ventures/${record.id}/banner`}
+                    method="post"
+                >
+                    <Button shape="round" danger icon={<DeleteOutlined />}>
+                        Delete
+                    </Button>
+                </Link>
+            </>
+        );
+    }
+
+    let largemapText = "Large Map Map";
+    let largemap = "";
+    if (record.largemap != null) {
+        largemapText = "Replace Large Map Image";
+        largemap = (
+            <>
+                <Image width={200} src={record.largemap} />
+                <Link
+                    href={`/admin/ventures/${record.id}/largemap`}
+                    method="post"
+                >
+                    <Button shape="round" danger icon={<DeleteOutlined />}>
+                        Delete
+                    </Button>
+                </Link>
+            </>
+        );
+    }
+
     return (
         <>
             <Form
@@ -82,30 +160,30 @@ function Venturesform({ data, setData, submitForm, savebutton, record }) {
                 onFinish={submitForm}
                 autoComplete="on"
                 initialValues={{
-                    code: data.code,
-                    sstatus: data.sstatus,
-                    title: data.title,
-                    templateslug: data.templateslug,
-                    slug: data.slug,
-                    mapheight: data.mapheight,
-                    location: data.location,
-                    mapwidth: data.mapwidth,
-                    branch: data.branch,
-                    salevel: data.salevel,
-                    locationimg: data.locationimg,
-                    layout: data.layout,
-                    layoutmap: data.layoutmap,
-                    pagetitleseo: data.pagetitleseo,
-                    banner: data.banner,
-                    largemap: data.largemap,
-                    metadescription: data.metadescription,
-                    metakeywords: data.metakeywords,
-                    address: data.address,
-                    published: data.published,
-                    mainbody: data.mainbody,
-                    extrabody: data.extrabody,
-                    bodystyles: data.bodystyles,
-                    otherdetails: data.otherdetails,
+                    code: data.code || "",
+                    sstatus: data.sstatus || "",
+                    title: data.title || "",
+                    templateslug: data.templateslug || "",
+                    slug: data.slug || "",
+                    mapheight: data.mapheight || "",
+                    location: data.location || "",
+                    mapwidth: data.mapwidth || "",
+                    branch: data.branch || "",
+                    salevel: data.salevel || "",
+                    locationimg: data.locationimg || "",
+                    layout: data.layout || "",
+                    layoutmap: data.layoutmap || "",
+                    pagetitleseo: data.pagetitleseo || "",
+                    banner: data.banner || "",
+                    largemap: data.largemap || "",
+                    metadescription: data.metadescription || "",
+                    metakeywords: data.metakeywords || "",
+                    address: data.address || "",
+                    published: data.published || "",
+                    mainbody: data.mainbody || "",
+                    extrabody: data.extrabody || "",
+                    bodystyles: data.bodystyles || "",
+                    otherdetails: data.otherdetails || "",
                 }}
             >
                 <Row gutter={[8, 4]}>
@@ -329,7 +407,8 @@ function Venturesform({ data, setData, submitForm, savebutton, record }) {
                         </Form.Item>
                     </Col>
                     <Col xs={24} md={12}>
-                        <Form.Item label="Location Image" name={"locationimg"}>
+                        <Form.Item label={locationImgText} name={"locationimg"}>
+                            {locationImg}
                             <Input
                                 name={"locationimg"}
                                 className="input-item"
@@ -384,7 +463,8 @@ function Venturesform({ data, setData, submitForm, savebutton, record }) {
                         </Form.Item>
                     </Col>
                     <Col xs={24} md={12}>
-                        <Form.Item label="Layout Map" name={"layoutmap"}>
+                        <Form.Item label={layoutmapText} name={"layoutmap"}>
+                            {layoutmap}
                             <Input
                                 name={"layoutmap"}
                                 className="input-item"
@@ -417,7 +497,8 @@ function Venturesform({ data, setData, submitForm, savebutton, record }) {
                         </Form.Item>
                     </Col>
                     <Col xs={24} md={12}>
-                        <Form.Item label="Banner" name={"banner"}>
+                        <Form.Item label={bannerText} name={"banner"}>
+                            {banner}
                             <Input
                                 name={"banner"}
                                 className="input-item"
@@ -429,7 +510,8 @@ function Venturesform({ data, setData, submitForm, savebutton, record }) {
                         </Form.Item>
                     </Col>
                     <Col xs={24} md={12}>
-                        <Form.Item label="Large Map" name={"largemap"}>
+                        <Form.Item label={largemapText} name={"largemap"}>
+                            {largemap}
                             <Input
                                 className="input-item"
                                 type="file"

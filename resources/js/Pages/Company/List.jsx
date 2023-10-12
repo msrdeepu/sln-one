@@ -76,6 +76,11 @@ function Companylist({ props, companyList, record }) {
         {
             title: "Created On",
             dataIndex: "created_at",
+            // render: (_, record) => (
+            //     <>
+            //         <p>{record.created_at}</p>
+            //     </>
+            // ),
             key: "key",
         },
         {
