@@ -13,7 +13,16 @@ return new class extends Migration
     {
         Schema::create('cashadvances', function (Blueprint $table) {
             $table->id();
+            $table->text('agent');
+            $table->text('branch');
+            $table->text('account');
+            $table->text('paymentmethod')->nullable();
+            $table->bigIncrements('amount')->nullable();
+            $table->text('cheque')->nullable();
+            $table->string('drawn');
+            $table->text('details')->nullable();
             $table->timestamps();
+            
         });
     }
 

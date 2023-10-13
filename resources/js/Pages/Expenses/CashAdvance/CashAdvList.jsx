@@ -12,40 +12,51 @@ import {
 //table columns
 const columns = [
     {
-        title: "CODE",
-        dataIndex: "code",
+        title: "ID",
+        dataIndex: "id",
+        key: "key",
+    },
+    {
+        title: "No.",
+        dataIndex: "",
+        key: "key",
+    },
+    {
+        title: "Agent",
+        dataIndex: "agent",
+        key: "key",
+    },
+    {
+        title: "Name",
+        dataIndex: "",
         key: "key",
     },
     {
         title: "Location",
-        dataIndex: "location",
-        key: "key",
-    },
-    {
-        title: "Email",
-        dataIndex: "email",
-        key: "key",
-    },
-    {
-        title: "Phone",
-        dataIndex: "phonenumber",
+        dataIndex: "",
         key: "key",
     },
 
     {
-        title: "Mobile",
-        dataIndex: "mobilenumber",
+        title: "Paid On",
+        dataIndex: "",
         key: "key",
     },
     {
-        title: "Active",
-        dataIndex: "status",
+        title: "Amount",
+        dataIndex: "amount",
+        key: "key",
+    },
+
+    {
+        title: "Details",
+        dataIndex: "",
         key: "key",
     },
 
     {
         title: "Created On",
-        dataIndex: "created_at",
+        dataIndex: "created",
         key: "key",
     },
     {
@@ -64,8 +75,8 @@ const columns = [
                     style={{ margin: "5px" }}
                     shape="circle"
                     //id={record.id}
-                    icon={<DeleteOutlined />}
                     //onClick={destroyRecord}
+                    icon={<DeleteOutlined />}
                     danger
                 />
             </Space>
@@ -73,7 +84,7 @@ const columns = [
     },
 ];
 
-function CashAdvList(props) {
+function CashAdvList({ props, cashadvanceList }) {
     return (
         <>
             <Head title="Dashboard" />
@@ -94,7 +105,11 @@ function CashAdvList(props) {
                             </Button>
                         </Link>
                     </div>
-                    <Table columns={columns} dataSource={""} size="small" />
+                    <Table
+                        columns={columns}
+                        dataSource={cashadvanceList}
+                        size="small"
+                    />
                 </Typography.Text>
             </Card>
         </>

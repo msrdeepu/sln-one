@@ -13,7 +13,11 @@ class CashadvanceController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Expenses/CashAdvance/CashAdvList');
+        $resource = Cashadvance::get(['*', 'id as key']);
+        $cashadvanceList = Cashadvance::get(['id', 'agent', 'branch', 'account', 'account', 'paymentmethod', 'amount', 'cheque', 'drawn', 'details', 'created']);
+        return Inertia::render('Expenses/CashAdvance/CashAdvList', [
+            'cashadvanceList'=>$cashadvanceList,
+        ]);
     }
 
     /**
@@ -21,7 +25,11 @@ class CashadvanceController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Expenses/CashAdvance/CreateCashAdvance');
+        $user = Auth::user();
+        return Inertia::render('Expenses/CashAdvance/CreateCashAdvance', [
+            'user' => $user,
+            'record' => new Cashadvance(),
+        ]);
     }
 
     /**
@@ -29,7 +37,18 @@ class CashadvanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = Cashadvance::create([
+            "agent"=> $request->agent,
+            "branch"=> $request->branch,
+            "account"=> $request->account,
+            "paymentmethod"=> $request->paymentmethod,
+            "amount"=> $request->amount,
+            "cheque"=> $request->cheque,
+            "drawn"=> $request->drawn,
+            "details"=> $request->details,
+        ]);
+        $data->save();
+        return to_route('cashadvance.index');
     }
 
     /**

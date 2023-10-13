@@ -15,6 +15,8 @@ import {
     GroupOutlined,
     BookOutlined,
     ClusterOutlined,
+    DollarOutlined,
+    MacCommandOutlined,
 } from "@ant-design/icons";
 import {
     Col,
@@ -81,22 +83,23 @@ export default function Authenticated({ header, children }) {
                     items={[
                         {
                             key: "dashboard",
-                            icon: <UserOutlined />,
+                            icon: <MacCommandOutlined />,
                             label: (
                                 <Link href={window.route("dashboard")}>
-                                    Dashboard
+                                    Adminboard
                                 </Link>
                             ),
                         },
                         {
-                            key: "companies",
-                            icon: <AppstoreAddOutlined />,
+                            key: "agents",
+                            icon: <UserOutlined />,
                             label: (
-                                <Link href={window.route("company.index")}>
-                                    Companies
+                                <Link href={window.route("agents.index")}>
+                                    Agents
                                 </Link>
                             ),
                         },
+
                         {
                             key: "branches",
                             icon: <BranchesOutlined />,
@@ -107,29 +110,11 @@ export default function Authenticated({ header, children }) {
                             ),
                         },
                         {
-                            key: "ventures",
-                            icon: <BoxPlotOutlined />,
+                            key: "cashadvance",
+                            icon: <DollarOutlined />,
                             label: (
-                                <Link href={window.route("ventures.index")}>
-                                    Ventures
-                                </Link>
-                            ),
-                        },
-                        {
-                            key: "properties",
-                            icon: <BuildOutlined />,
-                            label: (
-                                <Link href={window.route("properties.index")}>
-                                    Properties
-                                </Link>
-                            ),
-                        },
-                        {
-                            key: "setting",
-                            icon: <SettingOutlined />,
-                            label: (
-                                <Link href={window.route("setting.create")}>
-                                    Settings
+                                <Link href={window.route("cashadvance.index")}>
+                                    Cash Advance
                                 </Link>
                             ),
                         },
@@ -143,11 +128,89 @@ export default function Authenticated({ header, children }) {
                             ),
                         },
                         {
+                            key: "companies",
+                            icon: <AppstoreAddOutlined />,
+                            label: (
+                                <Link href={window.route("company.index")}>
+                                    Companies
+                                </Link>
+                            ),
+                        },
+                        {
                             key: "page",
                             icon: <BookOutlined />,
                             label: (
                                 <Link href={window.route("page.index")}>
                                     Content
+                                </Link>
+                            ),
+                        },
+                        {
+                            key: "customers",
+                            icon: <UserOutlined />,
+                            label: (
+                                <Link href={window.route("customer.index")}>
+                                    Customers
+                                </Link>
+                            ),
+                        },
+                        {
+                            key: "monthlyincentive",
+                            icon: <DollarOutlined />,
+                            label: (
+                                <Link
+                                    href={window.route(
+                                        "monthlyincentive.index"
+                                    )}
+                                >
+                                    Monthlyincentive
+                                </Link>
+                            ),
+                        },
+                        {
+                            key: "paymentrecipts",
+                            icon: <BookOutlined />,
+                            label: (
+                                <Link
+                                    href={window.route("paymentrecipts.index")}
+                                >
+                                    Paymentrecipts
+                                </Link>
+                            ),
+                        },
+                        {
+                            key: "properties",
+                            icon: <BuildOutlined />,
+                            label: (
+                                <Link href={window.route("properties.index")}>
+                                    Properties
+                                </Link>
+                            ),
+                        },
+                        {
+                            key: "receipts",
+                            icon: <GroupOutlined />,
+                            label: (
+                                <Link href={window.route("receipts.index")}>
+                                    Receipts
+                                </Link>
+                            ),
+                        },
+                        {
+                            key: "setting",
+                            icon: <SettingOutlined />,
+                            label: (
+                                <Link href={window.route("setting.create")}>
+                                    Settings
+                                </Link>
+                            ),
+                        },
+                        {
+                            key: "ventures",
+                            icon: <BoxPlotOutlined />,
+                            label: (
+                                <Link href={window.route("ventures.index")}>
+                                    Ventures
                                 </Link>
                             ),
                         },

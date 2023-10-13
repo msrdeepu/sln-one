@@ -1,29 +1,79 @@
 import React from "react";
-import { router } from "@inertiajs/react";
+import { router, useForm } from "@inertiajs/react";
 import { Col, Row, Form, Input, DatePicker, Select, Button } from "antd";
 const { TextArea } = Input;
 
-const onCancelData = () => {
-    window.alert("Are You Sure Want to Cancel?");
-    router.get(route("cashadvance.index"));
-};
+const CashForm = ({ data, setData, submitForm, saveButton }) => {
+    const [form] = Form.useForm();
 
-const CashForm = ({ saveButton }) => {
+    const handelFormAfterSubmit = () => {
+        form.submit();
+        form.setFieldsValue({
+            agent: "",
+            branch: "",
+            account: "",
+            paymentmethod: "",
+            amount: "",
+            cheque: "",
+            drawn: "",
+            details: "",
+        });
+    };
+
+    const onCancelData = () => {
+        window.alert("Are You Sure Want to Cancel?");
+        router.get(route("cashadvance.index"));
+    };
+
+    const handleAgent = (value) => {
+        setData("agent", value);
+        console.log(value);
+    };
+
+    const handleBranch = (value) => {
+        setData("branch", value);
+        console.log(value);
+    };
+
+    const handleAccount = (value) => {
+        setData("account", value);
+        console.log(value);
+    };
+
+    const handlePaymentMethod = (value) => {
+        setData("paymentmethod", value);
+        console.log(value);
+    };
+
     return (
         <div>
-            <Form layout="vertical">
+            <Form
+                layout="vertical"
+                onFinish={submitForm}
+                form={form}
+                initialValues={{
+                    agent: data.agent,
+                    branch: data.branch,
+                    account: data.account,
+                    paymentmethod: data.paymentmethod,
+                    amount: data.amount,
+                    cheque: data.cheque,
+                    drawn: data.drawn,
+                    details: data.details,
+                }}
+            >
                 <Row gutter={[8, 4]}>
                     <Col xs={24} md={12}>
                         <Form.Item label="Agent" name="agent">
                             <Select
                                 name="agent"
+                                onChange={handleAgent}
                                 options={[
                                     {
                                         value: "Demo Developers",
                                         label: "Demo Developers",
                                     },
                                 ]}
-                                //onChange={handleCompany}
                                 placeholder="--select agent--"
                                 style={{
                                     width: "100%",
@@ -35,6 +85,7 @@ const CashForm = ({ saveButton }) => {
                         <Form.Item label="Branch" name="branch">
                             <Select
                                 name="branch"
+                                onChange={handleBranch}
                                 options={[
                                     {
                                         value: "SLN Developers",
@@ -45,8 +96,7 @@ const CashForm = ({ saveButton }) => {
                                         label: "Demo Developers",
                                     },
                                 ]}
-                                //onChange={handleCompany}
-                                placeholder="--select company--"
+                                placeholder="--select branch--"
                                 style={{
                                     width: "100%",
                                 }}
@@ -63,8 +113,8 @@ const CashForm = ({ saveButton }) => {
                                         label: "Demo Developers",
                                     },
                                 ]}
-                                //onChange={handleCompany}
-                                placeholder="--select company--"
+                                onChange={handleAccount}
+                                placeholder="--select account--"
                                 style={{
                                     width: "100%",
                                 }}
@@ -81,8 +131,8 @@ const CashForm = ({ saveButton }) => {
                                         label: "Demo Developers",
                                     },
                                 ]}
-                                //onChange={handleCompany}
-                                placeholder="--select company--"
+                                onChange={handlePaymentMethod}
+                                placeholder="--select payment method--"
                                 style={{
                                     width: "100%",
                                 }}
@@ -94,6 +144,9 @@ const CashForm = ({ saveButton }) => {
                             <Input
                                 name="amount"
                                 placeholder="Enter Paid Amount Here"
+                                onChange={(e) =>
+                                    setData("amount", e.target.value)
+                                }
                             />
                         </Form.Item>
                     </Col>
@@ -102,6 +155,9 @@ const CashForm = ({ saveButton }) => {
                             <Input
                                 name="cheque"
                                 placeholder="Enter Cheque Number Here"
+                                onChange={(e) =>
+                                    setData("cheque", e.target.value)
+                                }
                             />
                         </Form.Item>
                     </Col>
@@ -111,6 +167,9 @@ const CashForm = ({ saveButton }) => {
                                 style={{ width: "100%" }}
                                 name="drawn"
                                 placeholder="Cheque / DD drawn Date"
+                                onChange={(e) =>
+                                    setData("drawn", e.target.value)
+                                }
                             />
                         </Form.Item>
                     </Col>
@@ -119,6 +178,9 @@ const CashForm = ({ saveButton }) => {
                             <TextArea
                                 name="details"
                                 placeholder="Enter Details Here"
+                                onChange={(e) =>
+                                    setData("details", e.target.value)
+                                }
                             />
                         </Form.Item>
                     </Col>
@@ -132,12 +194,12 @@ const CashForm = ({ saveButton }) => {
                 </div>
                 <div className="btns-container">
                     <Button
-                        //onClick={handelForm}
+                        onClick={handelFormAfterSubmit}
                         htmlType="submit"
                         className="btn-item"
                         type="primary"
                     >
-                        {(saveButton = "Save")}
+                        {saveButton}
                     </Button>
                     <Button
                         onClick={onCancelData}
