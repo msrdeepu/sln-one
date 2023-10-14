@@ -70,14 +70,14 @@ const columns = [
                 <Button
                     shape="circle"
                     id={record.id}
-                    // onClick={editRecord}
+                    onClick={editRecord}
                     icon={<EditOutlined />}
                 />
                 <Button
                     shape="circle"
                     id={record.id}
                     icon={<DeleteOutlined />}
-                    // onClick={destroyRecord}
+                    onClick={destroyRecord}
                     danger
                 />
             </Space>

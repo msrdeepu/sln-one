@@ -118,17 +118,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/page/{id}', [PageController::class, 'destroy'])->name('page.destroy');
     Route::post('/page/{id}/{asset}', [PageController::class, 'deleteasset'])->name('page.deleteasset');
 
-
     Route::get('/content/{id}', [ContentuploadController::class, 'create'])->name('content.create');
     Route::post('/content/{id}/store', [ContentuploadController::class, 'store'])->name('content.store');
     Route::get('/content/{id}/{page}/edit', [ContentuploadController::class, 'edit'])->name('content.edit');
     Route::post('/content/{id}', [ContentuploadController::class, 'update'])->name('content.update');
     Route::delete('/content/{id}', [ContentuploadController::class, 'destroy'])->name('content.destroy');
 
-
     Route::get('/admin/receipts', [ReceiptController::class, 'index']) -> name('receipts.index');
     Route::get('/admin/receipts-create', [ReceiptController::class, 'create']) -> name('receipts.create');
-    
 
     Route::get('/widget', [WidgetController::class, 'index'])->name('widget.index');
     Route::get('/widget/create', [WidgetController::class, 'create'])->name('widget.create');
