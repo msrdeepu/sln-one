@@ -92,6 +92,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/cashadvance', [CashadvanceController::class, 'index'])-> name('cashadvance.index');
     Route::get('/admin/cashadvance-create', [CashadvanceController::class, 'create'])-> name('cashadvance.create');
     Route::post('/admin/cashadvance/store', [CashadvanceController::class, 'store'])->name('cashadvance.store');
+    Route::get('/admin/cashadvance/{id}/edit',[CashadvanceController::class, 'edit'])->name('cashadvance.edit');
 
     Route::get('/admin/monthlyincentive', [MonthlyincentiveController::class, 'index'])-> name('monthlyincentive.index');
     Route::get('/admin/monthlyincentive-create', [MonthlyincentiveController::class, 'create'])-> name('monthlyincentive.create');

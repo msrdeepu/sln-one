@@ -3,7 +3,7 @@ import { router, useForm } from "@inertiajs/react";
 import { Col, Row, Form, Input, DatePicker, Select, Button } from "antd";
 const { TextArea } = Input;
 
-const CashForm = ({ data, setData, submitForm, saveButton }) => {
+const CashForm = ({ data, setData, submitForm, saveButton, record }) => {
     const [form] = Form.useForm();
 
     const handelFormAfterSubmit = () => {
@@ -27,30 +27,30 @@ const CashForm = ({ data, setData, submitForm, saveButton }) => {
 
     const handleAgent = (value) => {
         setData("agent", value);
-        console.log(value);
     };
 
     const handleBranch = (value) => {
         setData("branch", value);
-        console.log(value);
     };
 
     const handleAccount = (value) => {
         setData("account", value);
-        console.log(value);
     };
 
     const handlePaymentMethod = (value) => {
         setData("paymentmethod", value);
-        console.log(value);
+    };
+    const dateFormat = "YYYY-MM-DD";
+    const handleDrawnDate = (value) => {
+        setData("drawn", `${value.format(dateFormat)}`);
     };
 
     return (
         <div>
             <Form
                 layout="vertical"
-                onFinish={submitForm}
                 form={form}
+                onFinish={submitForm}
                 initialValues={{
                     agent: data.agent,
                     branch: data.branch,
@@ -167,9 +167,7 @@ const CashForm = ({ data, setData, submitForm, saveButton }) => {
                                 style={{ width: "100%" }}
                                 name="drawn"
                                 placeholder="Cheque / DD drawn Date"
-                                onChange={(e) =>
-                                    setData("drawn", e.target.value)
-                                }
+                                onChange={handleDrawnDate}
                             />
                         </Form.Item>
                     </Col>

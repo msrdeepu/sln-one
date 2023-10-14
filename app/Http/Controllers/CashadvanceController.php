@@ -14,7 +14,7 @@ class CashadvanceController extends Controller
     public function index()
     {
         $resource = Cashadvance::get(['*', 'id as key']);
-        $cashadvanceList = Cashadvance::get(['id', 'agent', 'branch', 'account', 'account', 'paymentmethod', 'amount', 'cheque', 'drawn', 'details', 'created']);
+        $cashadvanceList = Cashadvance::get(['id', 'agent', 'branch', 'account', 'paymentmethod', 'amount', 'cheque', 'drawn', 'details', 'created_at']);
         return Inertia::render('Expenses/CashAdvance/CashAdvList', [
             'cashadvanceList'=>$cashadvanceList,
         ]);
@@ -62,9 +62,16 @@ class CashadvanceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Cashadvance $cashadvance)
+    public function edit($id)
     {
-        return Inertia::render('Expenses/CashAdvance/CreateCashAdvance');
+        $user = Auth::user();
+        $cashadvances = Cashadvance::get(['id', 'agent', 'branch', 'account', 'paymentmethod', 'amount', 'cheque', 'drawn', 'details', 'created_at']);
+        $cashadvance = Cashadvance::find($id);
+        return Inertia::render('Expenses/CashAdvance/CreateCashAdvance', [
+            'user' => $user,
+            'cashadvanceList' => $cashadvances,
+            'record' => $cashadvance,
+        ]);
     }
 
     /**

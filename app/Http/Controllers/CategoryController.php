@@ -24,7 +24,7 @@ class CategoryController extends Controller
         //$resource = Category::get(['*', 'id AS key']);
         $resource = Category::get(['id','cname','layout','slug','parent','dorder','status','seotitle','id AS key']);
 
-        return Inertia::render('Cms/Categorylist', [
+        return Inertia::render('Cms/Categories/Categorylist', [
 
             'resource' => $resource,
         ]);
@@ -46,7 +46,7 @@ class CategoryController extends Controller
 
         // dd($sparent);
 
-        return Inertia::render('Cms/Categoryview', [
+        return Inertia::render('Cms/Categories/Categoryview', [
             'slayout' => $slayout,
             'sstatus' => $sstatus,
             'sparent' => $sparent,
@@ -135,7 +135,7 @@ class CategoryController extends Controller
 
 
 
-        return Inertia::render('Cms/Categoryview', [
+        return Inertia::render('Cms/Categories/Categoryview', [
             'slayout' => $slayout,
             'sstatus' => $sstatus,
             'sparent' => $sparent,

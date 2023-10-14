@@ -1,15 +1,15 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm } from "@inertiajs/react";
-import { Card, Typography } from "antd";
+import { Card } from "antd";
 
 import CashForm from "./CashForm";
 
 function CreateCashAdvance({ props, record }) {
     const { data, setData, post, patch, processing, errors, reset } = useForm({
-        agent: record.agent,
-        branch: record.branch,
-        account: record.account,
-        paymentmethod: record.paymentmethod,
+        agent: record.agent || "-- Select--",
+        branch: record.branch || "-- Select--",
+        account: record.account || "-- Select--",
+        paymentmethod: record.paymentmethod || "-- Select--",
         amount: record.amount,
         cheque: record.cheque,
         drawn: record.drawn,
@@ -17,7 +17,6 @@ function CreateCashAdvance({ props, record }) {
     });
 
     const submitForm = (values) => {
-        console.log(data);
         post("/admin/cashadvance/store", data);
     };
 
@@ -34,7 +33,7 @@ function CreateCashAdvance({ props, record }) {
                     data={data}
                     setData={setData}
                     saveButton={"Save"}
-                    submitForm={submitForm}
+                    submitForm={record.id == undefined ? submitForm : ""}
                 />
             </Card>
         </>

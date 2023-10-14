@@ -18,7 +18,7 @@ class WidgetController extends Controller
     public function index()
     {
         $resource = Widget::get(['*', 'id AS key']);
-        return Inertia::render('Cms/Widgetlist', [
+        return Inertia::render('Cms/Widgets/Widgetlist', [
             'resource' => $resource,
         ]);
     }
@@ -34,7 +34,7 @@ class WidgetController extends Controller
         $swtype = Setting::where('type', '=', 'WTYPE')->where('status', '=', 'ACTIVE')->get(['name AS label', 'value', 'id AS key']);
         $spublish = Setting::where('type', '=', 'PUBLISH')->where('status', '=', 'ACTIVE')->get(['name AS label', 'value', 'id AS key']);
         $slocation = Setting::where('type', '=', 'LOCATION')->where('status', '=', 'ACTIVE')->get(['name AS label', 'value', 'id AS key']);
-        return Inertia::render('Cms/Widgetview', [
+        return Inertia::render('Cms/Widgets/Widgetview', [
             'record' => new Widget(),
             'swtype' =>  $swtype,
             'spublish'=> $spublish,
@@ -111,7 +111,7 @@ class WidgetController extends Controller
         }
 
 
-        return Inertia::render('Cms/Widgetview', [
+        return Inertia::render('Cms/Widgets/Widgetview', [
             'record' => $record,
             'swtype' =>  $swtype,
             'spublish'=> $spublish,

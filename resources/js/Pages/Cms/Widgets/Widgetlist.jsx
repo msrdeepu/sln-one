@@ -85,14 +85,14 @@ const columns = [
     },
 ];
 
-const Widgetlist = ({ resource }) => {
+const Widgetlist = ({ props, resource }) => {
     return (
         <div>
             <Head title={`Widgets List`} />
 
             <Card title={`Widgets List`}>
                 <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <Link href={window.route("")} type="button">
+                    <Link href={window.route("widget.create")} type="button">
                         <Button type="primary">Add Widget</Button>
                     </Link>
                 </div>

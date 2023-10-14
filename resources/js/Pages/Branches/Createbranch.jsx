@@ -1,6 +1,6 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm } from "@inertiajs/react";
-import { Card, Input } from "antd";
+import { Card } from "antd";
 import BranchForm from "./BranchForm";
 
 function Createbranch({ props, record }) {
@@ -23,15 +23,17 @@ function Createbranch({ props, record }) {
 
     //update form submission
     const updateForm = (values) => {
-        patch(`/admin/branches/${record.id}`, data)
-    }
+        patch(`/admin/branches/${record.id}`, data);
+    };
 
     return (
         <>
             <Head title="Dashboard" />
             <Card title={`Branch Details`}>
                 <BranchForm
-                    submitForm={record.code == undefined ? submitForm : updateForm}
+                    submitForm={
+                        record.code == undefined ? submitForm : updateForm
+                    }
                     setData={setData}
                     data={data}
                     saveButton={record.code == undefined ? "Add" : "Save"}

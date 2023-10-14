@@ -9,82 +9,92 @@ import {
     PlusCircleOutlined,
 } from "@ant-design/icons";
 
-//table columns
-const columns = [
-    {
-        title: "ID",
-        dataIndex: "id",
-        key: "key",
-    },
-    {
-        title: "No.",
-        dataIndex: "",
-        key: "key",
-    },
-    {
-        title: "Agent",
-        dataIndex: "agent",
-        key: "key",
-    },
-    {
-        title: "Name",
-        dataIndex: "",
-        key: "key",
-    },
-    {
-        title: "Location",
-        dataIndex: "",
-        key: "key",
-    },
+function CashAdvList({ props, cashadvanceList, record }) {
+    //delete Action
+    function destroyRecord(e) {
+        if (confirm("Are you sure you want to delete this record ?")) {
+            router.delete(route("branches.destroy", e.currentTarget.id));
+        }
+    }
 
-    {
-        title: "Paid On",
-        dataIndex: "",
-        key: "key",
-    },
-    {
-        title: "Amount",
-        dataIndex: "amount",
-        key: "key",
-    },
+    //Loading Edit View
+    function editRecord(e) {
+        router.get(route("cashadvance.edit", e.currentTarget.id));
+    }
+    //table columns
+    const columns = [
+        {
+            title: "ID",
+            dataIndex: "id",
+            key: "key",
+        },
+        {
+            title: "No.",
+            dataIndex: "",
+            key: "key",
+        },
+        {
+            title: "Agent",
+            dataIndex: "agent",
+            key: "key",
+        },
+        {
+            title: "Name",
+            dataIndex: "",
+            key: "key",
+        },
+        {
+            title: "Location",
+            dataIndex: "",
+            key: "key",
+        },
 
-    {
-        title: "Details",
-        dataIndex: "",
-        key: "key",
-    },
+        {
+            title: "Paid On",
+            dataIndex: "",
+            key: "key",
+        },
+        {
+            title: "Amount",
+            dataIndex: "amount",
+            key: "key",
+        },
 
-    {
-        title: "Created On",
-        dataIndex: "created",
-        key: "key",
-    },
-    {
-        title: "Actions",
-        dataIndex: "actions",
-        render: (_, record) => (
-            <Space size="small">
-                <Button
-                    style={{ margin: "5px" }}
-                    shape="circle"
-                    //id={record.id}
-                    //onClick={editRecord}
-                    icon={<EditOutlined />}
-                />
-                <Button
-                    style={{ margin: "5px" }}
-                    shape="circle"
-                    //id={record.id}
-                    //onClick={destroyRecord}
-                    icon={<DeleteOutlined />}
-                    danger
-                />
-            </Space>
-        ),
-    },
-];
+        {
+            title: "Details",
+            dataIndex: "",
+            key: "key",
+        },
 
-function CashAdvList({ props, cashadvanceList }) {
+        {
+            title: "Created On",
+            dataIndex: "created_at",
+            key: "key",
+        },
+        {
+            title: "Actions",
+            dataIndex: "actions",
+            render: (_, record) => (
+                <Space size="small">
+                    <Button
+                        style={{ margin: "5px" }}
+                        shape="circle"
+                        id={record.id}
+                        onClick={editRecord}
+                        icon={<EditOutlined />}
+                    />
+                    <Button
+                        style={{ margin: "5px" }}
+                        shape="circle"
+                        //id={record.id}
+                        //onClick={destroyRecord}
+                        icon={<DeleteOutlined />}
+                        danger
+                    />
+                </Space>
+            ),
+        },
+    ];
     return (
         <>
             <Head title="Dashboard" />
