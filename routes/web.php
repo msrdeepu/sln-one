@@ -82,9 +82,17 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/admin/agents', [AgentController::class, 'index'])-> name('agents.index');
     Route::get('/admin/agents-create', [AgentController::class, 'create'])-> name('agents.create');
+    Route::post('/admin/agents/store', [AgentController::class, 'store'])->name('agents.store');
+    Route::get('/admin/agents/{id}/edit',[AgentController::class, 'edit'])->name('agents.edit');
+    Route::patch('/admin/agents/{id}', [AgentController::class, 'update'])->name('agents.update');
+    Route::delete('/admin/agents/{id}', [AgentController::class, 'destroy']) -> name('agents.destroy');
 
     Route::get('/admin/customer', [CustomerController::class, 'index'])-> name('customer.index');
     Route::get('/admin/customer-create', [CustomerController::class, 'create'])-> name('customer.create');
+    Route::post('/admin/customer/store', [CustomerController::class, 'store'])->name('customer.store');
+    Route::get('/admin/customer/{id}/edit',[CustomerController::class, 'edit'])->name('customer.edit');
+    Route::patch('/admin/customer/{id}', [CustomerController::class, 'update'])->name('customer.update');
+    Route::delete('/admin/customer/{id}', [CustomerController::class, 'destroy']) -> name('customer.destroy');
 
     Route::get('/admin/paymentrecipts', [PaymentreceiptController::class, 'index'])-> name('paymentrecipts.index');
     Route::get('/admin/paymentrecipts-create', [PaymentreceiptController::class, 'create'])-> name('paymentrecipts.create');

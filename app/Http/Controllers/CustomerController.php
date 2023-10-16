@@ -13,7 +13,11 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Customer/Customerlist');
+        $resource = Customer::get(['*', 'id as key']);
+        $customers = Customer::get(['id','user_id', 'branch_id', 'code','type','fullname', 'surname', 'website', 'organization', 'careof_relationship', 'careof','aadhar', 'pan', 'taxid', 'age', 'dob', 'nationality', 'occupation', 'address', 'district', 'state', 'country', 'pincode', 'email', 'mobile', 'phone', 'altmobile', 'whatsapp', 'nominee', 'nominee_address', 'nominee_relationship', 'nominee_age', 'nominee_dob', 'joined_on', 'enabled', 'login', 'deleted_at', 'created_at', 'updated_at']);
+        return Inertia::render('Customer/Customerlist', [
+            'customerList' => $customers,
+        ]);
     }
 
     /**
@@ -21,7 +25,11 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Customer/Createcustomer');
+        $user = Auth::user();
+        return Inertia::render('Customer/Createcustomer', [
+            'user' => $user,
+            'record'=> new Customer()
+        ]);
     }
 
     /**
@@ -29,7 +37,14 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $requestData = $request->all();
+        if ($request->file('photo')) {
+            $photo = $request->file('photo')->store('content', 'public');
+            $requestData['photo'] = $photo;
+        }
+        $data = Customer::create($requestData);
+        $data->save();
+        return to_route('customer.index');
     }
 
     /**

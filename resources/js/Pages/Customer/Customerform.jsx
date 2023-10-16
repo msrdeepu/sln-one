@@ -8,18 +8,168 @@ const onCancelData = () => {
     router.get(route("customer.index"));
 };
 
-const Customerform = ({ props, saveButton }) => {
+const Customerform = ({
+    props,
+    saveButton,
+    data,
+    setData,
+    submitForm,
+    record,
+}) => {
+    const [form] = Form.useForm();
+
+    const handleCareOf = (value) => {
+        setData("careof", value);
+        console.log(value);
+    };
+
+    const handleBranch = (value) => {
+        setData("branch", value);
+        console.log(value);
+    };
+
+    const handleOccupation = (value) => {
+        setData("occupation", value);
+        console.log(value);
+    };
+
+    const handleNationality = (value) => {
+        setData("nationality", value);
+        console.log(value);
+    };
+
+    const handleJoinDate = (value) => {
+        setData("joinedon", value);
+        console.log(value);
+    };
+
+    const handleDob = (value) => {
+        setData("dateofbirth", value);
+        console.log(value);
+    };
+    const handleNomDob = (value) => {
+        setData("nomineedob", value);
+        console.log(value);
+    };
+
+    const handleCountry = (value) => {
+        setData("country", value);
+        console.log(value);
+    };
+
+    const handleState = (value) => {
+        setData("state", value);
+        console.log(value);
+    };
+
+    const handleDistrict = (value) => {
+        setData("district", value);
+        console.log(value);
+    };
+
+    const handleActive = (value) => {
+        setData("active", value);
+        console.log(value);
+    };
+
+    const handleLoginHas = (value) => {
+        setData("loginhas", value);
+        console.log(value);
+    };
+
+    const handelForm = () => {
+        form.submit();
+        form.setFieldsValue({
+            surname: "",
+            fullname: "",
+            careof: "",
+            code: "",
+            carename: "",
+            organization: "",
+            branch: "",
+            pannumber: "",
+            adharnumber: "",
+            gstax: "",
+            dateofbirth: "",
+            mobile: "",
+            phone: "",
+            altmobile: "",
+            whatsapp: "",
+            occupation: "",
+            nationality: "",
+            joinedon: "",
+            address: "",
+            country: "",
+            state: "",
+            district: "",
+            pincode: "",
+            nomineename: "",
+            nomineerelation: "",
+            nomineedob: "",
+            photo: "",
+            active: "",
+            loginhas: "",
+            nomineeaddress: "",
+        });
+    };
+
     return (
-        <Form layout="vertical">
+        <Form
+            layout="vertical"
+            form={form}
+            onFinish={submitForm}
+            initialValues={{
+                surname: data.surname,
+                fullname: data.fullname,
+                careof: data.careof,
+                carename: data.carename,
+                code: data.code,
+                organization: data.organization,
+                branch: data.branch,
+                pannumber: data.pannumber,
+                adharnumber: data.adharnumber,
+                gstax: data.gstax,
+                dateofbirth: data.dateofbirth,
+                mobile: data.mobile,
+                phone: data.phone,
+                altmobile: data.altmobile,
+                whatsapp: data.whatsapp,
+                occupation: data.occupation,
+                nationality: data.nationality,
+                joinedon: data.joinedon,
+                address: data.address,
+                country: data.country,
+                state: data.state,
+                district: data.district,
+                pincode: data.pincode,
+                nomineename: data.nomineename,
+                nomineerelation: data.nomineerelation,
+                nomineedob: data.nomineedob,
+                photo: data.photo,
+                active: data.active,
+                loginhas: data.loginhas,
+                nomineeaddress: data.nomineeaddress,
+            }}
+        >
             <Row gutter={[8, 4]}>
                 <Col xs={24} md={12}>
                     <Form.Item label="Sur Name" name="surname">
-                        <Input name="surname" placeholder="Enter Sur Name" />
+                        <Input
+                            name="surname"
+                            placeholder="Enter Sur Name"
+                            onChange={(e) => setData("surname", e.target.value)}
+                        />
                     </Form.Item>
                 </Col>
                 <Col xs={24} md={12}>
                     <Form.Item label="Full Name" name="fullname">
-                        <Input name="fullname" placeholder="Enter Full Name" />
+                        <Input
+                            name="fullname"
+                            placeholder="Enter Full Name"
+                            onChange={(e) =>
+                                setData("fullname", e.target.value)
+                            }
+                        />
                     </Form.Item>
                 </Col>
                 <Col xs={24} md={12}>
@@ -32,7 +182,7 @@ const Customerform = ({ props, saveButton }) => {
                                     label: "SON",
                                 },
                             ]}
-                            // onChange={handleCompany}
+                            onChange={handleCareOf}
                             placeholder="--select care of--"
                             style={{
                                 width: "100%",
@@ -45,6 +195,9 @@ const Customerform = ({ props, saveButton }) => {
                         <Input
                             name="carename"
                             placeholder="Enter Care of Person Name"
+                            onChange={(e) =>
+                                setData("carename", e.target.value)
+                            }
                         />
                     </Form.Item>
                 </Col>
@@ -53,6 +206,9 @@ const Customerform = ({ props, saveButton }) => {
                         <Input
                             name="organization"
                             placeholder="Enter Organization Name"
+                            onChange={(e) =>
+                                setData("organization", e.target.value)
+                            }
                         />
                     </Form.Item>
                 </Col>
@@ -66,7 +222,7 @@ const Customerform = ({ props, saveButton }) => {
                                     label: "Branch",
                                 },
                             ]}
-                            // onChange={handleCompany}
+                            onChange={handleBranch}
                             placeholder="--select branch--"
                             style={{
                                 width: "100%",
@@ -76,7 +232,11 @@ const Customerform = ({ props, saveButton }) => {
                 </Col>
                 <Col xs={24} md={12}>
                     <Form.Item label="Code" name="code">
-                        <Input name="code" placeholder="Enter Code" />
+                        <Input
+                            name="code"
+                            placeholder="Enter Code"
+                            onChange={(e) => setData("code", e.target.value)}
+                        />
                     </Form.Item>
                 </Col>
                 <Col xs={24} md={12}>
@@ -84,20 +244,31 @@ const Customerform = ({ props, saveButton }) => {
                         <Input
                             name="pannumber"
                             placeholder="Enter Pan Number"
+                            onChange={(e) =>
+                                setData("pannumber", e.target.value)
+                            }
                         />
                     </Form.Item>
                 </Col>
                 <Col xs={24} md={12}>
                     <Form.Item label="Adhar Number" name="adharnumber">
                         <Input
+                            type="number"
                             name="adharnumber"
                             placeholder="Enter Adhar Number"
+                            onChange={(e) =>
+                                setData("adharnumber", e.target.value)
+                            }
                         />
                     </Form.Item>
                 </Col>
                 <Col xs={24} md={12}>
                     <Form.Item label="GST / TAX ID" name="gstax">
-                        <Input name="gstax" placeholder="Enter GST / TAX ID" />
+                        <Input
+                            name="gstax"
+                            placeholder="Enter GST / TAX ID"
+                            onChange={(e) => setData("gstax", e.target.value)}
+                        />
                     </Form.Item>
                 </Col>
                 <Col xs={24} md={12}>
@@ -105,6 +276,7 @@ const Customerform = ({ props, saveButton }) => {
                         <DatePicker
                             style={{ width: "100%" }}
                             name="dateofbirth"
+                            onChange={handleDob}
                         />
                     </Form.Item>
                 </Col>
@@ -114,6 +286,7 @@ const Customerform = ({ props, saveButton }) => {
                             name="mobile"
                             type="number"
                             placeholder="Enter Mobile Number"
+                            onChange={(e) => setData("mobile", e.target.value)}
                         />
                     </Form.Item>
                 </Col>
@@ -123,6 +296,7 @@ const Customerform = ({ props, saveButton }) => {
                             name="phone"
                             placeholder="Enter Mobile Number"
                             type="number"
+                            onChange={(e) => setData("phone", e.target.value)}
                         />
                     </Form.Item>
                 </Col>
@@ -132,6 +306,9 @@ const Customerform = ({ props, saveButton }) => {
                             name="altmobile"
                             placeholder="Enter Alt.Mobile Numner"
                             type="number"
+                            onChange={(e) =>
+                                setData("altmobile", e.target.value)
+                            }
                         />
                     </Form.Item>
                 </Col>
@@ -141,6 +318,9 @@ const Customerform = ({ props, saveButton }) => {
                             name="whatsapp"
                             placeholder="Enter Your Whats App Number"
                             type="number"
+                            onChange={(e) =>
+                                setData("whatsapp", e.target.value)
+                            }
                         />
                     </Form.Item>
                 </Col>
@@ -154,7 +334,7 @@ const Customerform = ({ props, saveButton }) => {
                                     label: "Manager",
                                 },
                             ]}
-                            // onChange={handleCompany}
+                            onChange={handleOccupation}
                             placeholder="--select manager--"
                             style={{
                                 width: "100%",
@@ -172,7 +352,7 @@ const Customerform = ({ props, saveButton }) => {
                                     label: "Indian",
                                 },
                             ]}
-                            // onChange={handleCompany}
+                            onChange={handleNationality}
                             placeholder="--select Naionality--"
                             style={{
                                 width: "100%",
@@ -182,7 +362,11 @@ const Customerform = ({ props, saveButton }) => {
                 </Col>
                 <Col xs={24} md={12}>
                     <Form.Item label="Joined On" name="joinedon">
-                        <DatePicker style={{ width: "100%" }} name="joinedon" />
+                        <DatePicker
+                            style={{ width: "100%" }}
+                            name="joinedon"
+                            onChange={handleJoinDate}
+                        />
                     </Form.Item>
                 </Col>
                 <Col xs={24}>
@@ -191,6 +375,7 @@ const Customerform = ({ props, saveButton }) => {
                             rows={3}
                             name="address"
                             placeholder="Enter Customer Address"
+                            onChange={(e) => setData("address", e.target.value)}
                         />
                     </Form.Item>
                 </Col>
@@ -204,7 +389,7 @@ const Customerform = ({ props, saveButton }) => {
                                     label: "India",
                                 },
                             ]}
-                            // onChange={handleCompany}
+                            onChange={handleCountry}
                             placeholder="--select Country--"
                             style={{
                                 width: "100%",
@@ -222,7 +407,7 @@ const Customerform = ({ props, saveButton }) => {
                                     label: "AP",
                                 },
                             ]}
-                            // onChange={handleCompany}
+                            onChange={handleState}
                             placeholder="--select State--"
                             style={{
                                 width: "100%",
@@ -240,7 +425,7 @@ const Customerform = ({ props, saveButton }) => {
                                     label: "Tirupati",
                                 },
                             ]}
-                            // onChange={handleCompany}
+                            onChange={handleDistrict}
                             placeholder="--select branch--"
                             style={{
                                 width: "100%",
@@ -250,7 +435,11 @@ const Customerform = ({ props, saveButton }) => {
                 </Col>
                 <Col xs={24} md={12}>
                     <Form.Item label="Pin Code" name="pincode">
-                        <Input name="pincode" placeholder="Enter Postal Code" />
+                        <Input
+                            name="pincode"
+                            placeholder="Enter Postal Code"
+                            onChange={(e) => setData("pincode", e.target.value)}
+                        />
                     </Form.Item>
                 </Col>
                 <Col xs={24} md={12}>
@@ -258,6 +447,9 @@ const Customerform = ({ props, saveButton }) => {
                         <Input
                             name="nomineename"
                             placeholder="Enter Nominee Name"
+                            onChange={(e) =>
+                                setData("nomineename", e.target.value)
+                            }
                         />
                     </Form.Item>
                 </Col>
@@ -270,6 +462,9 @@ const Customerform = ({ props, saveButton }) => {
                         <Input
                             name="nomineerelation"
                             placeholder="Enter Relationship with Nominee"
+                            onChange={(e) =>
+                                setData("nomineerelation", e.target.value)
+                            }
                         />
                     </Form.Item>
                 </Col>
@@ -278,28 +473,24 @@ const Customerform = ({ props, saveButton }) => {
                         <DatePicker
                             style={{ width: "100%" }}
                             name="nomineedob"
+                            onChange={handleNomDob}
                         />
                     </Form.Item>
                 </Col>
                 <Col xs={24} md={12}>
                     <Form.Item label="Photo" name="photo">
-                        <input
+                        <Input
                             name="photo"
                             type="file"
-                            style={{
-                                width: "100%",
-                                borderStyle: "solid",
-                                borderWidth: "0.5px",
-                                padding: "2px",
-                                borderColor: "#D9D9D9",
-                                borderRadius: "6px",
-                            }}
+                            onChange={(e) =>
+                                setData("photo", e.target.files[0])
+                            }
                         />
                     </Form.Item>
                 </Col>
                 <Col xs={24} md={12}>
                     <Form.Item label="Active" name="active">
-                        <Radio.Group name="active">
+                        <Radio.Group name="active" onChange={handleActive}>
                             <Radio value={"YES"}>YES</Radio>
                             <Radio value={"NO"}>NO</Radio>
                         </Radio.Group>
@@ -307,7 +498,7 @@ const Customerform = ({ props, saveButton }) => {
                 </Col>
                 <Col xs={24} md={12}>
                     <Form.Item label="Has Login" name="loginhas">
-                        <Radio.Group name="loginhas">
+                        <Radio.Group name="loginhas" onChange={handleLoginHas}>
                             <Radio value={"YES"}>YES</Radio>
                             <Radio value={"NO"}>NO</Radio>
                         </Radio.Group>
@@ -319,6 +510,9 @@ const Customerform = ({ props, saveButton }) => {
                             rows={3}
                             name="nomineeaddress"
                             placeholder="Enter Nominee Address"
+                            onChange={(e) =>
+                                setData("nomineeaddress", e.target.value)
+                            }
                         />
                     </Form.Item>
                 </Col>
@@ -332,12 +526,12 @@ const Customerform = ({ props, saveButton }) => {
             </div>
             <div className="btns-container">
                 <Button
-                    // onClick={handelForm}
+                    onClick={handelForm}
                     htmlType="submit"
                     className="btn-item"
                     type="primary"
                 >
-                    {(saveButton = "Save")}
+                    {saveButton}
                 </Button>
                 <Button
                     onClick={onCancelData}
