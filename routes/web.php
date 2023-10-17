@@ -93,6 +93,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/customer/{id}/edit',[CustomerController::class, 'edit'])->name('customer.edit');
     Route::patch('/admin/customer/{id}', [CustomerController::class, 'update'])->name('customer.update');
     Route::delete('/admin/customer/{id}', [CustomerController::class, 'destroy']) -> name('customer.destroy');
+    Route::post('/admin/customer/{id}/{asset}', [CustomerController::class, 'deleteasset'])->name('customer.deleteasset');
 
     Route::get('/admin/paymentrecipts', [PaymentreceiptController::class, 'index'])-> name('paymentrecipts.index');
     Route::get('/admin/paymentrecipts-create', [PaymentreceiptController::class, 'create'])-> name('paymentrecipts.create');

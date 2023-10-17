@@ -14,7 +14,7 @@ class CustomerController extends Controller
     public function index()
     {
         $resource = Customer::get(['*', 'id as key']);
-        $customers = Customer::get(['id','user_id', 'branch_id', 'code','type','fullname', 'surname', 'website', 'organization', 'careof_relationship', 'careof','aadhar', 'pan', 'taxid', 'age', 'dob', 'nationality', 'occupation', 'address', 'district', 'state', 'country', 'pincode', 'email', 'mobile', 'phone', 'altmobile', 'whatsapp', 'nominee', 'nominee_address', 'nominee_relationship', 'nominee_age', 'nominee_dob', 'joined_on', 'enabled', 'login', 'deleted_at', 'created_at', 'updated_at']);
+        $customers = Customer::get(['id', 'code', 'phone', 'phone', 'mobile', 'active', 'created_at']);
         return Inertia::render('Customer/Customerlist', [
             'customerList' => $customers,
         ]);
@@ -37,13 +37,14 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
+        $photo = null;
         $requestData = $request->all();
         if ($request->file('photo')) {
-            $photo = $request->file('photo')->store('content', 'public');
+            $photo = $request->file('photo')->store('nominee', 'public');
             $requestData['photo'] = $photo;
         }
         $data = Customer::create($requestData);
-        $data->save();
+        $data -> save();
         return to_route('customer.index');
     }
 
@@ -58,18 +59,49 @@ class CustomerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Customer $customer)
+    public function edit(Customer $customer, $id)
     {
-        return Inertia::render('Customer/Createcustomer');
+        $record = Customer::find($id);
+        if($record->photo != null){
+            $record->photoPath = asset('storage/'.$record->photo);
+         }
+        return Inertia::render('Customer/Createcustomer', [
+            'record' => $record,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Customer $customer)
+    public function update(Request $request, Customer $customer, $id)
     {
-        //
+        $photo = null;
+        $requestData = $request->all();
+        if ($request->file('photo')) {
+            Storage::delete('public' . $page->photo);
+            $photo = $request->file('photo')->store('nominee', 'public');
+            $requestData['photo'] = $photo;
+        }
+        $updated=$customer->update($requestData);
+        return to_route('customer.index');
     }
+
+
+    // delete page assets
+    public function deleteasset($id, $asset)
+    {
+        $page = Customer::find($id);
+
+        switch($asset) {
+            case('photo'):
+                Storage::delete('public' . $customer->photo);
+                $customer->update(["photo"=> null]);
+                break;
+            default:
+
+        }
+    }
+//dd($asset);
 
     /**
      * Remove the specified resource from storage.

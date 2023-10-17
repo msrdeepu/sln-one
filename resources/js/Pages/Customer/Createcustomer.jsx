@@ -39,16 +39,25 @@ function Createcustomer({ props, record }) {
         console.log(data);
         post("/admin/customer/store", data);
     };
+
+    //updateHandler
+    const updateHandler = (values) => {
+        console.log(data);
+        patch(`/admin/customer/${record.id}`, data);
+    };
     return (
         <>
             <Head title="Dashboard" />
 
             <Card title={`Customer Full Details`}>
                 <Customerform
-                    submitForm={submitForm}
+                    record={record}
+                    submitForm={
+                        record.surname == undefined ? submitForm : updateHandler
+                    }
                     data={data}
                     setData={setData}
-                    saveButton={"Save"}
+                    savebutton={record.surname == undefined ? "Add" : "Save"}
                 />
             </Card>
         </>

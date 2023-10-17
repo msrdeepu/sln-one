@@ -2,6 +2,7 @@ import React from "react";
 import { router } from "@inertiajs/react";
 import { Col, Row, Form, Input, DatePicker, Select, Radio, Button } from "antd";
 const { TextArea } = Input;
+import { DeleteOutlined, EyeOutlined } from "@ant-design/icons";
 
 const onCancelData = () => {
     window.alert("Are You Sure Want to Cancel?");
@@ -15,6 +16,7 @@ const Customerform = ({
     setData,
     submitForm,
     record,
+    savebutton,
 }) => {
     const [form] = Form.useForm();
 
@@ -76,6 +78,29 @@ const Customerform = ({
         setData("loginhas", value);
         console.log(value);
     };
+
+    let photoText = "Nominee Photo";
+    let photo = "";
+    if (record.photo != null) {
+        a1Txt = "Replace Photo";
+        attach1 = (
+            <>
+                <Link href={record.photoPath}>
+                    {" "}
+                    <Button shape="round" icon={<EyeOutlined />}>
+                        {" "}
+                        View Photo{" "}
+                    </Button>
+                </Link>
+                <Link href={`/customer/${record.id}/photo`} method="post">
+                    {" "}
+                    <Button shape="round" danger icon={<DeleteOutlined />}>
+                        Delete
+                    </Button>
+                </Link>
+            </>
+        );
+    }
 
     const handelForm = () => {
         form.submit();
@@ -151,6 +176,7 @@ const Customerform = ({
                 nomineeaddress: data.nomineeaddress,
             }}
         >
+            {console.log(record)}
             <Row gutter={[8, 4]}>
                 <Col xs={24} md={12}>
                     <Form.Item label="Sur Name" name="surname">
@@ -478,7 +504,8 @@ const Customerform = ({
                     </Form.Item>
                 </Col>
                 <Col xs={24} md={12}>
-                    <Form.Item label="Photo" name="photo">
+                    {photo}
+                    <Form.Item label={photoText} name="photo">
                         <Input
                             name="photo"
                             type="file"
@@ -531,7 +558,7 @@ const Customerform = ({
                     className="btn-item"
                     type="primary"
                 >
-                    {saveButton}
+                    {savebutton}
                 </Button>
                 <Button
                     onClick={onCancelData}
