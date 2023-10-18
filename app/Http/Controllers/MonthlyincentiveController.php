@@ -21,7 +21,11 @@ class MonthlyincentiveController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Expenses/MonthIncentives/CreateIncentive');
+        $user = Auth::user();
+        return Inertia::render('Expenses/MonthIncentives/CreateIncentive', [
+            'user' => $user,
+            'record'=> new Monthlyincentive(),
+        ]);
     }
 
     /**
@@ -29,7 +33,26 @@ class MonthlyincentiveController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data= Monthlyincentive::create([
+            "id"=> $request->code,
+            "incentivetype"=> $request->incentivetype,
+            "duration"=> $request->duration,
+            "agent"=> $request->agent,
+            "account"=> $request->account,
+            "business"=> $request->business,
+            "company"=> $request->company,
+            "paidon"=> $request->paidon,
+            "amount"=> $request->amount,
+            "tds"=> $request->tds,
+            "gst"=> $request->gst,
+            "chequeno"=> $request->chequeno,
+            "ddnum"=> $request->ddnum,
+            "drawnon"=> $request->drawnon,
+            "transactionid"=> $request->transactionid,
+            "description"=> $request->description,
+        ]);
+        $data->save();
+        return to_route('monthlyincentive.index');
     }
 
     /**

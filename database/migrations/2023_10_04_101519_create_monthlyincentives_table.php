@@ -13,6 +13,21 @@ return new class extends Migration
     {
         Schema::create('monthlyincentives', function (Blueprint $table) {
             $table->id();
+            $table->text('incentivetype')->nullable();
+            $table->text('duration')->nullable();
+            $table->text('agent')->nullable();
+            $table->text('account')->nullable();
+            $table->text('business')->nullable();
+            $table->text('company')->nullable();
+            $table->text('paidon')->nullable();
+            $table->bigIncrements('amount')->nullable();
+            $table->bigIncrements('tds')->nullable();
+            $table->bigIncrements('gst')->nullable();
+            $table->text('chequeno')->nullable();
+            $table->text('ddnum')->nullable();
+            $table->text('drawnon')->nullable();
+            $table->text('transactionid')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

@@ -105,6 +105,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/admin/monthlyincentive', [MonthlyincentiveController::class, 'index'])-> name('monthlyincentive.index');
     Route::get('/admin/monthlyincentive-create', [MonthlyincentiveController::class, 'create'])-> name('monthlyincentive.create');
+    Route::post('/admin/monthlyincentive/store', [MonthlyincentiveController::class, 'store'])->name('monthlyincentive.store');
 
     Route::get('/setting', [SettingController::class, 'create'])->name('setting.create');
     Route::get('/setting/{id}/edit', [SettingController::class, 'edit'])->name('setting.edit');

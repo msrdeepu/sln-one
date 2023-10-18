@@ -12,42 +12,32 @@ import {
 //table columns
 const columns = [
     {
-        title: "CODE",
-        dataIndex: "code",
+        title: "ID",
+        dataIndex: "id",
         key: "key",
     },
     {
-        title: "Location",
-        dataIndex: "location",
+        title: "Agent",
+        dataIndex: "agent",
         key: "key",
     },
     {
-        title: "Email",
-        dataIndex: "email",
+        title: "Paid On",
+        dataIndex: "paidon",
         key: "key",
     },
     {
-        title: "Phone",
-        dataIndex: "phonenumber",
+        title: "TDS",
+        dataIndex: "tds",
         key: "key",
     },
 
     {
-        title: "Mobile",
-        dataIndex: "mobilenumber",
-        key: "key",
-    },
-    {
-        title: "Active",
-        dataIndex: "status",
+        title: "Payment Method",
+        dataIndex: "paymentmethod",
         key: "key",
     },
 
-    {
-        title: "Created On",
-        dataIndex: "created_at",
-        key: "key",
-    },
     {
         title: "Actions",
         dataIndex: "actions",
