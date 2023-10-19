@@ -95,7 +95,7 @@ const IncentiveForm = ({ data, setData, submitForm, saveButton, record }) => {
                             style={{ width: "100%" }}
                             name="duration"
                             placeholder="Select Duration"
-                            onChange={handleDuration}
+                            // onChange={handleDuration}
                         />
                     </Form.Item>
                 </Col>
@@ -122,7 +122,7 @@ const IncentiveForm = ({ data, setData, submitForm, saveButton, record }) => {
                     <Form.Item label="Account" name="account">
                         {" "}
                         <Select
-                            name="company"
+                            name="account"
                             options={[
                                 {
                                     value: "Cash @ TPT",
@@ -139,14 +139,20 @@ const IncentiveForm = ({ data, setData, submitForm, saveButton, record }) => {
                 </Col>
                 <Col xs={24} md={12}>
                     <Form.Item label="Business" name="business">
-                        <Input name="business" placeholder="Business" />
+                        <Input
+                            name="business"
+                            placeholder="Business"
+                            onChange={(e) =>
+                                setData("business", e.target.value)
+                            }
+                        />
                     </Form.Item>
                 </Col>
                 <Col xs={24} md={12}>
                     <Form.Item label="Payment Method" name="paymentmethod">
                         {" "}
                         <Select
-                            name="company"
+                            name="paymentmethod"
                             options={[
                                 {
                                     value: "Method",
@@ -168,7 +174,7 @@ const IncentiveForm = ({ data, setData, submitForm, saveButton, record }) => {
                             style={{ width: "100%" }}
                             name="paidon"
                             placeholder="Paid On"
-                            onChange={handleDate}
+                            // onChange={handleDate}
                         />
                     </Form.Item>
                 </Col>
