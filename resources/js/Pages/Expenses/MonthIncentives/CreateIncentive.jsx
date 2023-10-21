@@ -7,7 +7,8 @@ function CreateIncentive({ props, record }) {
     //useFormHook
     const { data, setData, post, patch, processing, errors, reset } = useForm({
         incentivetype: record.incentivetype,
-        duration: record.duration,
+        durationfrom: record.durationfrom,
+        durationto: record.durationto,
         agent: record.agent,
         account: record.account,
         business: record.business,

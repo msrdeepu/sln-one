@@ -18,9 +18,9 @@ return new class extends Migration
             $table->text('title');
             $table->text('templateslug')->nullable();
             $table->text('slug')->nullable();
-            $table->text('mapheight')->nullable();
+            $table->bigIncrements('mapheight')->nullable();
             $table->text('location');
-            $table->text('mapwidth')->nullable();
+            $table->bigIncrements('mapwidth')->nullable();
             $table->text('branch');
             $table->text('salevel')->nullable();
             $table->text('locationimg')->nullable();

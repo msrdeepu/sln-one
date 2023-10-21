@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('monthlyincentives', function (Blueprint $table) {
             $table->id();
             $table->text('incentivetype')->nullable();
-            $table->text('duration')->nullable();
+            $table->text('durationfrom')->nullable();
+            $table->text('durationto')->nullable();
             $table->text('agent')->nullable();
             $table->text('account')->nullable();
             $table->text('business')->nullable();

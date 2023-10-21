@@ -106,6 +106,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/monthlyincentive', [MonthlyincentiveController::class, 'index'])-> name('monthlyincentive.index');
     Route::get('/admin/monthlyincentive-create', [MonthlyincentiveController::class, 'create'])-> name('monthlyincentive.create');
     Route::post('/admin/monthlyincentive/store', [MonthlyincentiveController::class, 'store'])->name('monthlyincentive.store');
+    Route::delete('/admin/monthlyincentive/{id}', [MonthlyincentiveController::class, 'destroy']) -> name('monthlyincentive.destroy');
+    Route::get('/admin/monthlyincentive/{id}/edit',[MonthlyincentiveController::class, 'edit'])->name('monthlyincentive.edit');
+    Route::patch('/admin/monthlyincentive/{id}', [MonthlyincentiveController::class, 'update'])->name('monthlyincentive.update');
 
     Route::get('/setting', [SettingController::class, 'create'])->name('setting.create');
     Route::get('/setting/{id}/edit', [SettingController::class, 'edit'])->name('setting.edit');

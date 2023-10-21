@@ -9,61 +9,72 @@ import {
     PlusCircleOutlined,
 } from "@ant-design/icons";
 
-//table columns
-const columns = [
-    {
-        title: "ID",
-        dataIndex: "id",
-        key: "key",
-    },
-    {
-        title: "Agent",
-        dataIndex: "agent",
-        key: "key",
-    },
-    {
-        title: "Paid On",
-        dataIndex: "paidon",
-        key: "key",
-    },
-    {
-        title: "TDS",
-        dataIndex: "tds",
-        key: "key",
-    },
+//delete Action
+function destroyRecord(e) {
+    if (confirm("Are you sure you want to delete this record ?")) {
+        router.delete(route("monthlyincentive.destroy", e.currentTarget.id));
+    }
+}
 
-    {
-        title: "Payment Method",
-        dataIndex: "paymentmethod",
-        key: "key",
-    },
+//Loading Edit View
+function editRecord(e) {
+    router.get(route("monthlyincentive.edit", e.currentTarget.id));
+}
 
-    {
-        title: "Actions",
-        dataIndex: "actions",
-        render: (_, record) => (
-            <Space size="small">
-                <Button
-                    style={{ margin: "5px" }}
-                    shape="circle"
-                    //id={record.id}
-                    //onClick={editRecord}
-                    icon={<EditOutlined />}
-                />
-                <Button
-                    style={{ margin: "5px" }}
-                    shape="circle"
-                    //id={record.id}
-                    icon={<DeleteOutlined />}
-                    // onClick={destroyRecord}
-                    danger
-                />
-            </Space>
-        ),
-    },
-];
+function MonthlyIncentList({ props, resource, record }) {
+    //table columns
+    const columns = [
+        {
+            title: "ID",
+            dataIndex: "id",
+            key: "key",
+        },
+        {
+            title: "Agent",
+            dataIndex: "agent",
+            key: "key",
+        },
+        {
+            title: "Paid On",
+            dataIndex: "paidon",
+            key: "key",
+        },
+        {
+            title: "TDS",
+            dataIndex: "tds",
+            key: "key",
+        },
 
-function MonthlyIncentList(props) {
+        {
+            title: "Payment Method",
+            dataIndex: "paymentmethod",
+            key: "key",
+        },
+
+        {
+            title: "Actions",
+            dataIndex: "actions",
+            render: (_, record) => (
+                <Space size="small">
+                    <Button
+                        style={{ margin: "5px" }}
+                        shape="circle"
+                        id={record.id}
+                        onClick={editRecord}
+                        icon={<EditOutlined />}
+                    />
+                    <Button
+                        style={{ margin: "5px" }}
+                        shape="circle"
+                        id={record.id}
+                        icon={<DeleteOutlined />}
+                        onClick={destroyRecord}
+                        danger
+                    />
+                </Space>
+            ),
+        },
+    ];
     return (
         <>
             <Head title="Dashboard" />
@@ -84,7 +95,11 @@ function MonthlyIncentList(props) {
                             </Button>
                         </Link>
                     </div>
-                    <Table columns={columns} dataSource={""} size="small" />
+                    <Table
+                        columns={columns}
+                        dataSource={resource}
+                        size="small"
+                    />
                 </Typography.Text>
             </Card>
         </>

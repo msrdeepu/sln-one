@@ -2,6 +2,7 @@ import React from "react";
 import { router } from "@inertiajs/react";
 import { Col, Row, Form, Input, DatePicker, Select, Button } from "antd";
 const { TextArea } = Input;
+import dayjs from "dayjs";
 const { RangePicker } = DatePicker;
 
 const IncentiveForm = ({ data, setData, submitForm, saveButton, record }) => {
@@ -27,13 +28,18 @@ const IncentiveForm = ({ data, setData, submitForm, saveButton, record }) => {
         console.log(value);
     };
 
-    const handleDuration = (value) => {
-        setData("duration", value);
+    const dateFormat = "YYYY-MM-DD";
+    const handleDurationFrom = (value) => {
+        setData("durationfrom", `${value.format(dateFormat)}`);
         console.log(value);
     };
-    const handleDate = (value) => {
-        setData("paidon", value);
+    const handleDurationTo = (value) => {
+        setData("durationto", `${value.format(dateFormat)}`);
         console.log(value);
+    };
+
+    const handleDate = (value) => {
+        setData("paidon", `${value.format(dateFormat)}`);
     };
 
     const onCancelData = () => {
@@ -51,26 +57,26 @@ const IncentiveForm = ({ data, setData, submitForm, saveButton, record }) => {
             form={form}
             onFinish={submitForm}
             autoComplete="on"
-            // initialValues={{
-            //     incentivetype: data.incentivetype,
-            //     duration: data.duration,
-            //     agent: data.agent,
-            //     account: data.account,
-            //     business: data.business,
-            //     company: data.company,
-            //     paidon: data.paidon,
-            //     amount: data.amount,
-            //     tds: data.tds,
-            //     gst: data.gst,
-            //     chequeno: data.chequeno,
-            //     ddnum: data.ddnum,
-            //     drawnon: data.drawnon,
-            //     transactionid: data.transactionid,
-            //     description: data.description,
-            // }}
+            initialValues={{
+                incentivetype: data.incentivetype,
+                durationfrom: data.durationfrom,
+                durationto: data.durationto,
+                agent: data.agent,
+                account: data.account,
+                business: data.business,
+                paidon: data.paidon,
+                amount: data.amount,
+                tds: data.tds,
+                gst: data.gst,
+                chequeno: data.chequeno,
+                ddnum: data.ddnum,
+                drawnon: data.drawnon,
+                transactionid: data.transactionid,
+                description: data.description,
+            }}
         >
             <Row gutter={[8, 4]}>
-                <Col xs={24} md={12}>
+                <Col xs={24} md={8}>
                     <Form.Item label="Incentive Type" name="incentivetype">
                         {" "}
                         <Select
@@ -89,14 +95,46 @@ const IncentiveForm = ({ data, setData, submitForm, saveButton, record }) => {
                         />
                     </Form.Item>
                 </Col>
-                <Col xs={24} md={12}>
-                    <Form.Item label="Duration" name="duration">
-                        <RangePicker
-                            style={{ width: "100%" }}
-                            name="duration"
-                            placeholder="Select Duration"
-                            // onChange={handleDuration}
-                        />
+                <Col xs={24} md={8}>
+                    <Form.Item label="Duration From" name="durationfrom">
+                        {record.durationfrom != null ? (
+                            <DatePicker
+                                defaultValue={dayjs(
+                                    record.durationfrom,
+                                    dateFormat
+                                )}
+                                style={{ width: "100%" }}
+                                onChange={handleDurationFrom}
+                                format={dateFormat}
+                            />
+                        ) : (
+                            <DatePicker
+                                style={{ width: "100%" }}
+                                onChange={handleDurationFrom}
+                                format={dateFormat}
+                            />
+                        )}
+                    </Form.Item>
+                </Col>
+                <Col xs={24} md={8}>
+                    <Form.Item label="Duration To" name="durationto">
+                        {record.durationto != null ? (
+                            <DatePicker
+                                defaultValue={dayjs(
+                                    record.durationto,
+                                    dateFormat
+                                )}
+                                style={{ width: "100%" }}
+                                onChange={handleDurationTo}
+                                format={dateFormat}
+                            />
+                        ) : (
+                            <DatePicker
+                                style={{ width: "100%" }}
+                                onChange={handleDurationTo}
+                                format={dateFormat}
+                            />
+                        )}
                     </Form.Item>
                 </Col>
                 <Col xs={24} md={12}>
@@ -170,12 +208,20 @@ const IncentiveForm = ({ data, setData, submitForm, saveButton, record }) => {
 
                 <Col xs={24} md={12}>
                     <Form.Item label="Paid On" name="paidon">
-                        <DatePicker
-                            style={{ width: "100%" }}
-                            name="paidon"
-                            placeholder="Paid On"
-                            // onChange={handleDate}
-                        />
+                        {record.paidon != null ? (
+                            <DatePicker
+                                defaultValue={dayjs(record.paidon, dateFormat)}
+                                style={{ width: "100%" }}
+                                onChange={handleDate}
+                                format={dateFormat}
+                            />
+                        ) : (
+                            <DatePicker
+                                style={{ width: "100%" }}
+                                onChange={handleDate}
+                                format={dateFormat}
+                            />
+                        )}
                     </Form.Item>
                 </Col>
                 <Col xs={24} md={12}>
@@ -267,7 +313,6 @@ const IncentiveForm = ({ data, setData, submitForm, saveButton, record }) => {
             </div>
             <div className="btns-container">
                 <Button
-                    //onClick={handelForm}
                     htmlType="submit"
                     className="btn-item"
                     type="primary"
